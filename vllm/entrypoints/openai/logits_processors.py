@@ -34,9 +34,9 @@ def _get_allowed_token_ids_logits_processor(
 ) -> LogitsProcessor:
     if not allowed_token_ids:
         raise ValueError("Empty allowed_token_ids provided")
-    if not all(0 <= tid < vocab_size for tid in allowed_token_ids):
-        raise ValueError("allowed_token_ids contains "
-                         "out-of-vocab token id")
+    # if not all(0 <= tid < vocab_size for tid in allowed_token_ids):
+    #    raise ValueError("allowed_token_ids contains "
+    #                     "out-of-vocab token id")
     return AllowedTokenIdsLogitsProcessor(allowed_token_ids)
 
 
@@ -70,10 +70,10 @@ def get_logits_processors(
                 "an integer or string representing an integer") from exc
 
         # Check if token_id is within the vocab size
-        for token_id, bias in clamped_logit_bias.items():
-            if token_id < 0 or token_id >= tokenizer.vocab_size:
-                raise ValueError(f"token_id {token_id} in logit_bias contains "
-                                 "out-of-vocab token id")
+        #for token_id, bias in clamped_logit_bias.items():
+        #    if token_id < 0 or token_id >= tokenizer.vocab_size:
+        #        raise ValueError(f"token_id {token_id} in logit_bias contains "
+        #                         "out-of-vocab token id")
 
         logits_processors.append(
             partial(logit_bias_logits_processor, clamped_logit_bias))
